@@ -1,0 +1,17 @@
+KESSY LIFE BALANCE — PWA OFFLINE
+
+MUHIMU:
+PWA inahitaji kufunguliwa kupitia anwani salama ya HTTPS (au localhost).
+Kufungua index.html moja kwa moja kutoka Downloads hakutoshi kuwezesha Service Worker.
+
+JINSI YA KUIWEKA:
+1. Pakia mafaili YOTE yaliyomo kwenye ZIP hii kwenye huduma ya static website inayotoa HTTPS
+   (kwa mfano Netlify Drop au GitHub Pages). Usibadilishe majina ya mafaili.
+2. Fungua anwani ya HTTPS iliyotolewa kwenye Google Chrome ya simu.
+3. Subiri ukurasa ufunguke ukiwa na internet mara ya kwanza ili app ihifadhiwe kwa matumizi offline.
+4. Kwenye Chrome gusa menyu ya nukta tatu (⋮) > Install app au Add to Home screen.
+5. Fungua app kupitia alama yake kwenye Home Screen. Baada ya cache kukamilika, app shell itafunguka bila internet.
+
+DATA:
+Rekodi za mazoezi na kazi huhifadhiwa kwenye localStorage ya Chrome kwenye kifaa hicho.
+Usifute Chrome site data; fanya export ya CSV mara kwa mara ili uwe na nakala.
