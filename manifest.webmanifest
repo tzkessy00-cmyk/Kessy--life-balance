@@ -1,16 +1,9 @@
 {
-  "id": "./",
   "name": "KESSY LIFE BALANCE",
   "short_name": "Kessy Balance",
-  "description": "Ratiba ya gym, rekodi za mazoezi, lishe na masomo ya HRM.",
   "start_url": "./index.html",
-  "scope": "./",
   "display": "standalone",
-  "orientation": "portrait",
   "background_color": "#0d141b",
   "theme_color": "#101820",
-  "icons": [
-    {"src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any"},
-    {"src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any"}
-  ]
+  "description": "Offline fitness, HRM study, nutrition and daily planner"
 }
