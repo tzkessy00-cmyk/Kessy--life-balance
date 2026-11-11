@@ -23,7 +23,7 @@ button.secondary{background:var(--panel2);color:var(--text);border:1px solid var
 input,select,textarea{width:100%;padding:11px;border-radius:9px;border:1px solid var(--line);background:#101a22;color:var(--text);margin:5px 0 12px;font:inherit}
 label{font-size:13px;color:var(--muted)}.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:9px}
 .exercise{padding:10px 0;border-bottom:1px solid var(--line)}.exercise:last-child{border:0}.exercise b{display:block}.pill{display:inline-block;padding:4px 8px;border-radius:20px;background:#293b45;color:var(--gold);font-size:11px;margin-top:5px}
-.record{padding:10px 0;border-bottom:1px solid var(--line)}.record:last-child{border:0}
+.gallery{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.exercise-card{background:var(--panel2);border:1px solid var(--line);border-radius:12px;overflow:hidden}.exercise-art{height:142px;background:linear-gradient(145deg,#f2f4f5,#dce4e8);display:flex;align-items:center;justify-content:center}.exercise-art svg{width:100%;height:100%;max-width:220px}.exercise-info{padding:10px}.exercise-info b{display:block;font-size:13px;color:var(--gold);min-height:34px}.exercise-info small{display:block;color:var(--muted);font-size:11px;line-height:1.4}.gallery-tools{display:flex;gap:8px;align-items:center}.gallery-tools input{margin:0}.record{padding:10px 0;border-bottom:1px solid var(--line)}.record:last-child{border:0}
 .barrow{display:grid;grid-template-columns:74px 1fr 28px;gap:8px;align-items:center;margin:8px 0;font-size:12px}.barbg{height:12px;background:var(--panel2);border-radius:8px;overflow:hidden}.barfill{height:100%;background:var(--gold);border-radius:8px}.reporttable{width:100%;border-collapse:collapse;font-size:12px}.reporttable th,.reporttable td{padding:7px 4px;border-bottom:1px solid var(--line);text-align:left}.reportstats{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin:10px 0}.reportstats .stat{padding:9px}
 @media print{body{background:#fff;color:#111}header,.tabs,#gym,#home,#more,#records,footer,#exportBtn,#backupBtn,#importFile,#importBtn,#pdfBtn{display:none!important}body.print-notes #hrm{display:block!important}body.print-notes #hrm .no-print{display:none!important}body.print-notes #hrm .card{border:0!important;padding:0!important}body.print-notes #hrm .note-topic{break-inside:avoid}main{max-width:none;padding:0}.card{background:#fff;color:#111;border:1px solid #ccc;break-inside:avoid}.muted{color:#444}.barbg{background:#ddd}.barfill{background:#555}.reporttable th,.reporttable td{border-color:#ccc}}
 footer{text-align:center;color:var(--muted);font-size:12px;padding:12px}
@@ -52,6 +52,7 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:12px}
 <div class="exercise"><b>Jumamosi (J6) — Lower Body + Abs</b>Hakuna squat. Kwa sasa fanya lower-body tu baada ya ruhusa ya daktari/physiotherapist; abs pia chagua kulingana na ushauri wa mtaalamu.</div>
 <div class="exercise"><b>Jumapili (J7) — Rest / Recovery</b>Mapumziko na recovery.</div>
 </div>
+<div class="card"><h2>Picha za mazoezi — Exercise Gallery</h2><p class="muted">Michoro ya ndani ya app inayoonyesha vifaa na mkao wa jumla wa kila zoezi. Inafanya kazi offline. Chagua zoezi kuona mchoro wake.</p><div class="gallery-tools"><input id="exerciseSearch" type="search" placeholder="Tafuta zoezi..." aria-label="Tafuta zoezi"></div><div id="exerciseGallery" class="gallery"></div></div>
 <div class="card"><h2>Ongeza rekodi ya mazoezi</h2><p class="muted">Orodha ya mazoezi imejazwa tayari kwa kifua, mgongo, biceps, triceps, mabega, core na lower body. Chagua jina kwenye orodha badala ya kuandika.</p>
 <form id="workoutForm">
 <label>Tarehe</label><input id="date" type="date" required>
@@ -112,6 +113,24 @@ const $=id=>document.getElementById(id);
 document.querySelectorAll('.tabs button').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.tabs button').forEach(x=>x.classList.remove('active'));document.querySelectorAll('main section').forEach(x=>x.classList.remove('active'));b.classList.add('active');$(b.dataset.tab).classList.add('active');}));
 const get=(k,d=[])=>{try{return JSON.parse(localStorage.getItem(k))||d}catch{return d}};
 const put=(k,v)=>localStorage.setItem(k,JSON.stringify(v));
+
+// Offline exercise gallery: original vector diagrams bundled directly in this HTML.
+const exerciseTips={
+'Chest':'Kifua','Back':'Mgongo','Biceps':'Biceps','Triceps':'Triceps','Shoulders':'Mabega','Lower Body':'Miguu — subiri ruhusa ya mtaalamu','Core':'Tumbo / core'
+};
+function exerciseGroup(name){if(/Bench Press|Chest Press|Chest Fly|Crossover|Push-Up/i.test(name))return 'Chest';if(/Row|Pulldown|Face Pull/i.test(name))return 'Back';if(/Curl/i.test(name)&&!/Skull|Triceps/i.test(name))return 'Biceps';if(/Triceps|Skull Crusher/i.test(name))return 'Triceps';if(/Shoulder|Lateral Raise|Front Raise|Rear-Delt|Upright Row/i.test(name))return 'Shoulders';if(/Leg |Calf|Glute|Hip Abduction/i.test(name))return 'Lower Body';return 'Core'}
+function exerciseArt(name){const g=exerciseGroup(name);let tool='dumbbell';if(/Bench|Press|Skull Crusher/i.test(name))tool='bar';if(/Cable|Pulldown|Face Pull/i.test(name))tool='cable';if(/Row/i.test(name))tool='row';if(/Leg|Calf|Hip Abduction/i.test(name))tool='legs';if(/Plank|Crunch|Dead Bug/i.test(name))tool='mat';
+const equipment=tool==='bar'?'<path d="M34 43H186M45 34V52M54 37V49M166 34V52M176 37V49" stroke="#303b45" stroke-width="7" stroke-linecap="round"/>':tool==='cable'?'<path d="M184 20V125M178 20H190M184 28L112 69" stroke="#303b45" stroke-width="5" fill="none"/><path d="M105 65L119 73" stroke="#303b45" stroke-width="5"/>':tool==='row'?'<path d="M30 120H190M48 112L65 80M175 112L158 80" stroke="#303b45" stroke-width="6" fill="none"/><path d="M70 82L144 82" stroke="#303b45" stroke-width="5"/>':tool==='legs'?'<path d="M45 115H180M60 115V52M165 115V52" stroke="#303b45" stroke-width="7" fill="none"/>':tool==='mat'?'<rect x="25" y="120" width="170" height="9" rx="4" fill="#c49b39"/>':'<path d="M32 44H188M45 35V53M55 38V50M165 35V53M176 38V50" stroke="#303b45" stroke-width="6" stroke-linecap="round"/>';
+let pose=tool==='legs'?'<circle cx="105" cy="38" r="12" fill="#b77d52"/><path d="M105 50L105 82L78 101L78 115M105 82L133 101L133 115" stroke="#263541" stroke-width="12" stroke-linecap="round" fill="none"/>':tool==='mat'?'<circle cx="73" cy="83" r="11" fill="#b77d52"/><path d="M84 88L126 98L164 111M98 92L80 116M126 98L142 119" stroke="#263541" stroke-width="11" stroke-linecap="round" fill="none"/>':'<circle cx="105" cy="34" r="12" fill="#b77d52"/><path d="M105 47L105 91M105 57L70 72M105 57L140 72M105 91L82 122M105 91L128 122" stroke="#263541" stroke-width="12" stroke-linecap="round" fill="none"/>';
+if(/Lateral Raise|Front Raise|Shoulder Press/i.test(name))pose=pose.replace('M105 57L70 72M105 57L140 72','M105 58L62 40M105 58L148 40');
+if(/Curl/i.test(name))pose=pose.replace('M105 57L70 72M105 57L140 72','M105 57L75 48M105 57L135 48');
+return `<svg viewBox="0 0 220 150" role="img" aria-label="Mchoro wa ${name}" xmlns="http://www.w3.org/2000/svg"><rect width="220" height="150" rx="12" fill="#eef2f4"/>${equipment}${pose}<path d="M105 49L95 72L115 72Z" fill="#d84b4b" opacity=".9"/><circle cx="105" cy="69" r="4" fill="#d84b4b"/><text x="110" y="143" font-size="9" text-anchor="middle" fill="#34434d">${g.toUpperCase()}</text></svg>`;
+}
+function renderExerciseGallery(filter=''){const select=$('exerciseName');const names=[...select.options].filter(o=>o.value&&!o.disabled).map(o=>o.value);const q=filter.toLowerCase();$('exerciseGallery').innerHTML=names.filter(n=>n.toLowerCase().includes(q)).map(n=>`<article class="exercise-card"><div class="exercise-art">${exerciseArt(n)}</div><div class="exercise-info"><b>${esc(n)}</b><small>Sehemu kuu: ${exerciseTips[exerciseGroup(n)]}. Angalia maelekezo ya mkufunzi kuhusu mkao na mwendo sahihi.</small></div></article>`).join('');}
+$('exerciseSearch').addEventListener('input',e=>renderExerciseGallery(e.target.value));
+$('exerciseName').addEventListener('change',e=>{const card=[...document.querySelectorAll('.exercise-card')].find(c=>c.querySelector('b')?.textContent===e.target.value);if(card)card.scrollIntoView({behavior:'smooth',block:'center'});});
+renderExerciseGallery();
+
 // Rekodi ya mazoezi ya Kessy — huongezwa mara moja tu kwenye kumbukumbu ya simu.
 const backBicepsSeedKey='kessy_seeded_workouts_20261111_back_biceps';
 if(!localStorage.getItem(backBicepsSeedKey)){
@@ -220,7 +239,7 @@ function showHrmTopic(i){const n=hrmNotes[i];$('hrmTopic').value=String(i);$('hr
 $('hrmTopic').addEventListener('change',e=>showHrmTopic(Number(e.target.value)));
 $('prevTopic').addEventListener('click',()=>showHrmTopic((Number($('hrmTopic').value)+hrmNotes.length-1)%hrmNotes.length));
 $('nextTopic').addEventListener('click',()=>showHrmTopic((Number($('hrmTopic').value)+1)%hrmNotes.length));
-$('printNotes').addEventListener('click',()=>{document.body.classList.add('print-notes');window.print();setTimeout(()=>document.body.classList.remove('print-notes'),500)});
+$('printNotes').addEventListener('click',()=>{const chosen=Number($('hrmTopic').value)||0;$('hrmNotesContent').innerHTML=hrmNotes.map(n=>`<article class="note-topic"><h2>${esc(n.title)}</h2>${n.body.map(([h,t])=>`<h3>${esc(h)}</h3><p>${esc(t)}</p>`).join('')}</article>`).join('');document.body.classList.add('print-notes');window.print();setTimeout(()=>{document.body.classList.remove('print-notes');showHrmTopic(chosen)},500)});
 window.addEventListener('afterprint',()=>document.body.classList.remove('print-notes'));
 renderHrm();
 // Service worker caches the app shell after the first online visit for later offline use.
