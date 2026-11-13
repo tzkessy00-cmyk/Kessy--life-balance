@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="sw">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#101820">
+<title>KESSY LIFE BALANCE</title>
+<meta name="description" content="Kessy Life Balance — fitness, HRM study, nutrition and planner. Offline-first app.">
+<link rel="manifest" href="manifest.webmanifest">
+<style>
+:root{--bg:#0d141b;--panel:#17232d;--panel2:#1d2c37;--gold:#e4b84f;--text:#f4f6f8;--muted:#aab7c2;--line:#30414e;--green:#65c99a}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:16px system-ui,-apple-system,Segoe UI,sans-serif}
+header{padding:24px 18px 18px;background:linear-gradient(135deg,#17232d,#263744);border-bottom:1px solid var(--line)}
+header small{color:var(--gold);letter-spacing:2px;font-weight:700}h1{font-size:25px;margin:7px 0 4px}header p{margin:0;color:var(--muted);font-size:14px}
+main{max-width:760px;margin:auto;padding:16px 14px 40px}.tabs{display:grid;grid-template-columns:repeat(5,1fr);gap:7px;margin:0 0 16px}
+.tabs button{background:var(--panel);border:1px solid var(--line);color:var(--muted);padding:10px 4px;border-radius:11px;font-size:12px}
+.tabs button.active{background:var(--gold);color:#15191d;border-color:var(--gold);font-weight:800}
+section{display:none}section.active{display:block}.card{background:var(--panel);border:1px solid var(--line);border-radius:15px;padding:15px;margin:0 0 13px}
+h2{font-size:19px;margin:0 0 12px}h3{font-size:15px;margin:0 0 7px;color:var(--gold)}
+p{line-height:1.5}.muted{color:var(--muted);font-size:13px}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.stat{background:var(--panel2);padding:12px;border-radius:12px}.stat b{display:block;font-size:20px;color:var(--gold)}
+button,.btn{cursor:pointer;border:0;border-radius:10px;padding:11px 14px;background:var(--gold);color:#15191d;font-weight:750}
+button.secondary{background:var(--panel2);color:var(--text);border:1px solid var(--line)}
+input,select,textarea{width:100%;padding:11px;border-radius:9px;border:1px solid var(--line);background:#101a22;color:var(--text);margin:5px 0 12px;font:inherit}
+label{font-size:13px;color:var(--muted)}.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.exercise{padding:10px 0;border-bottom:1px solid var(--line)}.exercise:last-child{border:0}.exercise b{display:block}.pill{display:inline-block;padding:4px 8px;border-radius:20px;background:#293b45;color:var(--gold);font-size:11px;margin-top:5px}
+.record{padding:10px 0;border-bottom:1px solid var(--line)}.record:last-child{border:0}
+.barrow{display:grid;grid-template-columns:74px 1fr 28px;gap:8px;align-items:center;margin:8px 0;font-size:12px}.barbg{height:12px;background:var(--panel2);border-radius:8px;overflow:hidden}.barfill{height:100%;background:var(--gold);border-radius:8px}.reporttable{width:100%;border-collapse:collapse;font-size:12px}.reporttable th,.reporttable td{padding:7px 4px;border-bottom:1px solid var(--line);text-align:left}.reportstats{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin:10px 0}.reportstats .stat{padding:9px}
+@media print{body{background:#fff;color:#111}header,.tabs,#gym,#home,#more,#records,footer,#exportBtn,#backupBtn,#importFile,#importBtn,#pdfBtn{display:none!important}body.print-notes #hrm{display:block!important}body.print-notes #hrm .no-print{display:none!important}body.print-notes #hrm .card{border:0!important;padding:0!important}body.print-notes #hrm .note-topic{break-inside:avoid}main{max-width:none;padding:0}.card{background:#fff;color:#111;border:1px solid #ccc;break-inside:avoid}.muted{color:#444}.barbg{background:#ddd}.barfill{background:#555}.reporttable th,.reporttable td{border-color:#ccc}}
+footer{text-align:center;color:var(--muted);font-size:12px;padding:12px}
+@media(max-width:420px){.tabs button{font-size:11px;padding:9px 2px}.stats{gap:5px}.stat{padding:9px}.stat b{font-size:17px}}
+
+</style>
+</head>
+<body>
+<header><small>KESSY LIFE BALANCE</small><h1>Afya, nguvu na maendeleo</h1><p>Ratiba ya gym • Rekodi za mazoezi • Lishe • HRM Study</p></header>
+<main>
+<nav class="tabs">
+<button class="active" data-tab="home">Mwanzo</button><button data-tab="gym">Gym</button><button data-tab="records">Rekodi</button><button data-tab="more">Lishe</button><button data-tab="hrm">HRM Notes</button>
+</nav>
+<section id="home" class="active">
+<div class="card"><h2>Karibu kwenye mpango wako</h2><p class="muted">Lengo: kudumisha afya, kujenga nguvu na mwonekano wa mwili wa mazoezi.</p>
+<div class="stats"><div class="stat"><span class="muted">Uzito</span><b>67 kg</b></div><div class="stat"><span class="muted">Urefu</span><b>5.5 ft</b></div><div class="stat"><span class="muted">Umri</span><b>30</b></div></div></div>
+<div class="card"><h2>Rekodi ya mwisho</h2><h3>11 Novemba 2026 · Mgongo & Biceps</h3><p>Bent-Over Barbell Row: 40 kg · 3×12<br>Reverse-Grip Bent-Over Barbell Row: 40 kg · 3×10<br>Single-Arm Dumbbell Row: 25 kg · 3×10<br>Lat Pulldown: 47.5 kg · 3×10<br>Seated Dumbbell Biceps Curl: 10 kg kila mkono · 3×12<br>Short Barbell Biceps Curl: 20 kg · 3×10</p><span class="pill">Seti 18 · Marudio 162</span></div>
+<div class="card"><h2>Usalama kwanza</h2><p class="muted">Umetaja kuwa goti lina historia ya jeraha na unahitaji tathmini/ushauri wa ligament. Kwa kuwa bado hujapata ruhusa ya daktari, usitumie programu hii kama kibali cha kufanya mazoezi mazito. Epuka squat kama ulivyoelekeza; pata mwongozo wa daktari au physiotherapist kabla ya mazoezi yanayohusisha mguu au uzito mkubwa.</p></div>
+</section>
+<section id="gym">
+<div class="card"><h2>Ratiba ya mazoezi</h2><p class="muted">Mfano wa mgawanyo wa wiki. Fanya tu mazoezi ambayo mtaalamu amekuruhusu.</p>
+<div class="exercise"><b>Jumatatu (J1) — Full Chest + Triceps</b>Flat Bench Press, Incline Bench Press, Chest Fly, Cable Crossover, Triceps Pushdown, Roller Triceps Extension</div>
+<div class="exercise"><b>Jumanne (J2) — Full Back + Biceps</b>Lat Pulldown, Bent-Over Barbell Row, Seated Cable Row, Single-Arm Dumbbell Row, Biceps Curl, Hammer Curl</div>
+<div class="exercise"><b>Jumatano (J3) — Shoulders + Triceps</b>Shoulder Press, Lateral Raise, Rear-Delt Fly, Front Raise, Triceps Pushdown, Overhead Triceps Extension</div>
+<div class="exercise"><b>Alhamisi (J4) — Full Chest</b>Flat Bench Press, Incline Bench Press, Decline Bench Press, Dumbbell Chest Press, Chest Fly</div>
+<div class="exercise"><b>Ijumaa (J5) — Back + Biceps</b>Lat Pulldown, Seated Cable Row, Chest-Supported Row, Straight-Arm Pulldown, Preacher Curl, Hammer Curl</div>
+<div class="exercise"><b>Jumamosi (J6) — Lower Body + Abs</b>Squat haipo kwenye orodha. Fanya mazoezi ya lower-body tu baada ya ruhusa ya daktari/physiotherapist; chagua mwendo unaokubalika kwa goti lako.</div>
+<div class="exercise"><b>Jumapili (J7) — Rest / Recovery</b>Mapumziko na recovery.</div>
+</div>
+<div class="card"><h2>Ongeza rekodi ya mazoezi</h2><p class="muted">Maktaba pana ya mazoezi kwa kila kundi na vifaa tofauti: Barbell, Dumbbell, Cable, Machine, Smith Machine na Bodyweight. Chagua zoezi kwenye orodha; hakuna picha ndani ya app.</p>
+<form id="workoutForm">
+<label>Tarehe</label><input id="date" type="date" required>
+<label>Chagua zoezi (majina yapo tayari)</label>
+<select id="exerciseName" required>
+<option value="">-- Chagua zoezi --</option>
+<optgroup label="Kifua (Chest) — Barbell / Dumbbell / Cable / Machine / Smith / Bodyweight">
+<option>Flat Barbell Bench Press</option><option>Incline Barbell Bench Press</option><option>Decline Barbell Bench Press</option><option>Close-Grip Bench Press</option><option>Wide-Grip Bench Press</option><option>Paused Bench Press</option><option>Dumbbell Bench Press</option><option>Incline Dumbbell Press</option><option>Decline Dumbbell Press</option><option>Neutral-Grip Dumbbell Press</option><option>Dumbbell Squeeze Press</option><option>Dumbbell Fly</option><option>Incline Dumbbell Fly</option><option>Decline Dumbbell Fly</option><option>Cable Chest Fly</option><option>Low-to-High Cable Fly</option><option>High-to-Low Cable Fly</option><option>Standing Cable Chest Press</option><option>Single-Arm Cable Chest Press</option><option>Cable Crossover</option><option>Pec Deck Fly</option><option>Machine Chest Press</option><option>Incline Machine Chest Press</option><option>Smith Machine Bench Press</option><option>Smith Machine Incline Press</option><option>Smith Machine Decline Press</option><option>Push-Up</option><option>Wide Push-Up</option><option>Diamond Push-Up</option><option>Incline Push-Up</option><option>Decline Push-Up</option><option>Weighted Push-Up</option><option>Chest Dip</option><option>Assisted Chest Dip</option><option>Landmine Chest Press</option>
+</optgroup>
+<optgroup label="Mgongo (Back) — Barbell / Dumbbell / Cable / Machine / Bodyweight">
+<option>Conventional Deadlift</option><option>Romanian Deadlift</option><option>Rack Pull</option><option>Barbell Bent-Over Row</option><option>Reverse-Grip Barbell Row</option><option>Pendlay Row</option><option>Yates Row</option><option>T-Bar Row</option><option>Landmine Row</option><option>Dumbbell Bent-Over Row</option><option>Single-Arm Dumbbell Row</option><option>Chest-Supported Dumbbell Row</option><option>Renegade Row</option><option>Lat Pulldown</option><option>Wide-Grip Lat Pulldown</option><option>Close-Grip Lat Pulldown</option><option>Reverse-Grip Lat Pulldown</option><option>Neutral-Grip Lat Pulldown</option><option>Behind-the-Neck Pulldown</option><option>Straight-Arm Cable Pulldown</option><option>Single-Arm Cable Pulldown</option><option>Seated Cable Row</option><option>Close-Grip Seated Cable Row</option><option>Wide-Grip Seated Cable Row</option><option>Single-Arm Cable Row</option><option>Standing Cable Row</option><option>Cable Pullover</option><option>Machine Row</option><option>Chest-Supported Machine Row</option><option>Iso-Lateral Row</option><option>Hammer Strength High Row</option><option>Smith Machine Bent-Over Row</option><option>Pull-Up</option><option>Chin-Up</option><option>Neutral-Grip Pull-Up</option><option>Assisted Pull-Up</option><option>Weighted Pull-Up</option><option>Inverted Row</option>
+</optgroup>
+<optgroup label="Mabega (Shoulders) — Cable / Dumbbell / Barbell / Machine / Smith">
+<option>Standing Barbell Overhead Press</option><option>Seated Barbell Shoulder Press</option><option>Push Press</option><option>Behind-the-Neck Press</option><option>Arnold Press</option><option>Seated Dumbbell Shoulder Press</option><option>Standing Dumbbell Shoulder Press</option><option>Single-Arm Dumbbell Shoulder Press</option><option>Dumbbell Lateral Raise</option><option>Seated Dumbbell Lateral Raise</option><option>Leaning Dumbbell Lateral Raise</option><option>Cable Lateral Raise</option><option>Single-Arm Cable Lateral Raise</option><option>Behind-the-Back Cable Lateral Raise</option><option>Cable Front Raise</option><option>Single-Arm Cable Front Raise</option><option>Dumbbell Front Raise</option><option>Barbell Front Raise</option><option>Cable Rear Delt Fly</option><option>Single-Arm Cable Rear Delt Fly</option><option>Bent-Over Cable Rear Delt Fly</option><option>Reverse Pec Deck</option><option>Dumbbell Rear Delt Fly</option><option>Bent-Over Dumbbell Reverse Fly</option><option>Face Pull</option><option>Rope Face Pull</option><option>Cable Y-Raise</option><option>Cable Upright Row</option><option>Barbell Upright Row</option><option>Dumbbell Upright Row</option><option>Machine Shoulder Press</option><option>Smith Machine Shoulder Press</option><option>Smith Machine Upright Row</option><option>Landmine Shoulder Press</option><option>Lu Raise</option>
+</optgroup>
+<optgroup label="Biceps — Cable / Dumbbell / Barbell / Machine">
+<option>Standing Barbell Biceps Curl</option><option>EZ-Bar Curl</option><option>Short Barbell Biceps Curl</option><option>Wide-Grip Barbell Curl</option><option>Close-Grip Barbell Curl</option><option>Reverse-Grip Barbell Curl</option><option>Drag Curl</option><option>Preacher Curl</option><option>EZ-Bar Preacher Curl</option><option>Dumbbell Biceps Curl</option><option>Alternating Dumbbell Curl</option><option>Seated Dumbbell Curl</option><option>Incline Dumbbell Curl</option><option>Concentration Curl</option><option>Hammer Curl</option><option>Cross-Body Hammer Curl</option><option>Zottman Curl</option><option>Spider Curl</option><option>Cable Biceps Curl</option><option>Straight-Bar Cable Curl</option><option>EZ-Bar Cable Curl</option><option>Rope Cable Hammer Curl</option><option>Single-Arm Cable Curl</option><option>Bayesian Cable Curl</option><option>High Cable Curl</option><option>Cable Preacher Curl</option><option>Machine Biceps Curl</option><option>Preacher Curl Machine</option><option>Resistance-Band Biceps Curl</option>
+</optgroup>
+<optgroup label="Triceps — Cable / Dumbbell / Barbell / Machine / Bodyweight">
+<option>Cable Triceps Pushdown</option><option>Rope Triceps Pushdown</option><option>Straight-Bar Triceps Pushdown</option><option>V-Bar Triceps Pushdown</option><option>Reverse-Grip Triceps Pushdown</option><option>Single-Arm Cable Pushdown</option><option>Cross-Body Cable Triceps Extension</option><option>Overhead Cable Triceps Extension</option><option>Rope Overhead Triceps Extension</option><option>Single-Arm Overhead Cable Extension</option><option>Dumbbell Overhead Triceps Extension</option><option>Single-Dumbbell Overhead Extension</option><option>Dumbbell Triceps Kickback</option><option>Cable Triceps Kickback</option><option>EZ-Bar Skull Crusher</option><option>Barbell Skull Crusher</option><option>Dumbbell Skull Crusher</option><option>Incline Skull Crusher</option><option>Close-Grip Bench Press</option><option>JM Press</option><option>Rolling Dumbbell Triceps Extension</option><option>Machine Triceps Extension</option><option>Assisted Triceps Dip</option><option>Bench Dip</option><option>Parallel-Bar Dip</option><option>Diamond Push-Up</option>
+</optgroup>
+<optgroup label="Forearms & Grip">
+<option>Wrist Curl</option><option>Reverse Wrist Curl</option><option>Behind-the-Back Wrist Curl</option><option>Dumbbell Wrist Curl</option><option>Cable Wrist Curl</option><option>Reverse Cable Wrist Curl</option><option>Barbell Reverse Curl</option><option>Dumbbell Reverse Curl</option><option>Hammer Wrist Curl</option><option>Farmer’s Carry</option><option>Dumbbell Farmer Carry</option><option>Barbell Hold</option><option>Plate Pinch Hold</option><option>Dead Hang</option><option>Wrist Roller</option>
+</optgroup>
+<optgroup label="Traps (Upper / Mid / Lower)">
+<option>Barbell Shrug</option><option>Dumbbell Shrug</option><option>Smith Machine Shrug</option><option>Cable Shrug</option><option>Behind-the-Back Barbell Shrug</option><option>Incline Dumbbell Shrug</option><option>Kelso Shrug</option><option>Rack Pull</option><option>Face Pull</option><option>Cable Y-Raise</option><option>Prone Y-Raise</option><option>Scapular Pull-Up</option>
+</optgroup>
+<optgroup label="Miguu (Legs) — bila Squat; fanya baada ya ruhusa ya mtaalamu">
+<option>Leg Press</option><option>Horizontal Leg Press</option><option>Single-Leg Leg Press</option><option>Leg Extension</option><option>Single-Leg Extension</option><option>Seated Leg Curl</option><option>Lying Leg Curl</option><option>Standing Leg Curl</option><option>Single-Leg Curl</option><option>Romanian Deadlift</option><option>Dumbbell Romanian Deadlift</option><option>Stiff-Leg Deadlift</option><option>Trap Bar Deadlift</option><option>Step-Up</option><option>Low Step-Up</option><option>Supported Step-Up</option><option>Reverse Lunge</option><option>Walking Lunge</option><option>Glute-Ham Raise</option><option>Nordic Hamstring Curl</option><option>Cable Leg Curl</option><option>Cable Hip Flexion</option><option>Hip Adduction Machine</option><option>Hip Abduction Machine</option><option>Seated Hip Abduction</option><option>Standing Calf Raise</option><option>Seated Calf Raise</option><option>Leg Press Calf Raise</option><option>Donkey Calf Raise</option><option>Tibialis Raise</option>
+</optgroup>
+<optgroup label="Glutes (Makalio)">
+<option>Barbell Hip Thrust</option><option>Smith Machine Hip Thrust</option><option>Dumbbell Hip Thrust</option><option>Glute Bridge</option><option>Single-Leg Glute Bridge</option><option>Machine Glute Drive</option><option>Cable Glute Kickback</option><option>Cable Pull-Through</option><option>Cable Hip Extension</option><option>Quadruped Donkey Kick</option><option>Fire Hydrant</option><option>Hip Abduction Machine</option><option>Banded Glute Bridge</option>
+</optgroup>
+<optgroup label="Abs & Core (Tumbo / Kiuno)">
+<option>Plank</option><option>Side Plank</option><option>Knee Plank</option><option>RKC Plank</option><option>Crunch</option><option>Reverse Crunch</option><option>Bicycle Crunch</option><option>Oblique Crunch</option><option>Cable Crunch</option><option>Kneeling Cable Crunch</option><option>Decline Sit-Up</option><option>Sit-Up</option><option>Hanging Knee Raise</option><option>Hanging Leg Raise</option><option>Captain’s Chair Knee Raise</option><option>Lying Leg Raise</option><option>Flutter Kicks</option><option>Scissor Kicks</option><option>Dead Bug</option><option>Bird Dog</option><option>Mountain Climber</option><option>Russian Twist</option><option>Weighted Russian Twist</option><option>Pallof Press</option><option>Cable Woodchop</option><option>High-to-Low Cable Chop</option><option>Low-to-High Cable Chop</option><option>Ab Wheel Rollout</option><option>Stability Ball Crunch</option><option>Hollow Body Hold</option>
+</optgroup>
+<optgroup label="Full Body & Functional">
+<option>Kettlebell Swing</option><option>Kettlebell Deadlift</option><option>Kettlebell Goblet Carry</option><option>Dumbbell Thruster</option><option>Barbell Thruster</option><option>Dumbbell Clean and Press</option><option>Barbell Clean and Press</option><option>Power Clean</option><option>Hang Clean</option><option>Clean Pull</option><option>Snatch</option><option>Dumbbell Snatch</option><option>Turkish Get-Up</option><option>Sled Push</option><option>Sled Pull</option><option>Battle Rope Waves</option><option>Medicine Ball Slam</option><option>Medicine Ball Chest Pass</option><option>Bear Crawl</option><option>Farmer’s Walk</option>
+</optgroup>
+<optgroup label="Cardio & Conditioning">
+<option>Treadmill Walk</option><option>Treadmill Jog</option><option>Treadmill Run</option><option>Stationary Bike</option><option>Upright Bike</option><option>Recumbent Bike</option><option>Elliptical Trainer</option><option>Rowing Machine</option><option>Stair Climber</option><option>Stepper</option><option>Jump Rope</option><option>Shadow Boxing</option><option>Air Bike</option><option>Ski Erg</option>
+</optgroup>
+</select>
+<p class="muted">Chagua jina tu; huhitaji kuliandika. Kisha jaza uzito, seti na marudio.</p>
+<div class="formgrid"><div><label>Uzito (kg)</label><input id="weight" type="number" min="0" step="0.5" placeholder="70" required></div><div><label>Seti</label><input id="sets" type="number" min="1" placeholder="3" required></div></div>
+<label>Marudio kwa kila seti</label><input id="reps" type="number" min="1" placeholder="10" required>
+<label>Maelezo (hiari)</label><textarea id="notes" rows="2" placeholder="Ulijisikiaje?"></textarea>
+<button type="submit">Hifadhi zoezi</button>
+</form></div>
+</section>
+<section id="records">
+<div class="card"><h2>Rekodi ulizohifadhi</h2><p class="muted">Rekodi zinahifadhiwa kwenye simu hii bila intaneti. Pakua backup ya JSON ili uweze kuihifadhi kama faili na kuirejesha baadaye au kwenye simu nyingine.</p><div id="recordList"></div><div class="formgrid"><button class="secondary" id="exportBtn">Pakua CSV</button><button id="backupBtn">Pakua backup (JSON)</button></div><label style="display:block;margin-top:12px">Pakia / rejesha rekodi kutoka faili</label><input id="importFile" type="file" accept=".json,.csv,application/json,text/csv"><p class="muted">Faili za JSON za backup na CSV zilizopakuliwa hapa zinaweza kuingizwa. Rekodi zilizopo hazitafutwa; mpya zitaongezwa bila kurudia zinazofanana.</p><button class="secondary" id="importBtn">Ingiza faili ya rekodi</button></div>
+<div class="card"><h2>Ripoti ya wiki</h2><p class="muted">Muhtasari wa mazoezi ya Jumatatu hadi Jumapili. Tumia kitufe cha PDF kufungua ukurasa wa kuchapisha, kisha chagua “Save as PDF” kwenye simu.</p><div id="weeklyReport"></div><button id="pdfBtn">Pakua / hifadhi ripoti kama PDF</button></div>
+</section>
+<section id="more">
+<div class="card"><h2>Lishe</h2><p class="muted">Jenga mlo wenye uwiano: protini, wanga, mboga/matunda na maji. Mahitaji yako yatategemea afya na kiwango cha mazoezi.</p>
+<div class="exercise"><b>Protini</b>Mayai, samaki, kuku, maharage, kunde na mtindi.</div>
+<div class="exercise"><b>Wanga</b>Wali, viazi, ndizi, ugali na oats.</div>
+<div class="exercise"><b>Mboga na matunda</b>Mchicha, matembele, karoti, parachichi, ndizi na machungwa.</div>
+<div class="exercise"><b>Maji</b>Kunywa maji mara kwa mara; ongeza kulingana na joto na shughuli.</div></div>
+
+<div class="card"><h2>Mpangaji wa siku</h2><label>Kazi / jambo la kufanya</label><input id="taskInput" placeholder="Andika kazi yako"><button id="addTask">Ongeza kazi</button><div id="tasks"></div></div>
+</section>
+<section id="hrm">
+<div class="card"><h2>HRM Study Notes — First Year</h2><p class="muted">Complete introductory study notes stored inside this app. These notes are available offline. They are general learning notes; compare them with your Open University course outline and prescribed readings.</p>
+<div class="no-print"><label for="hrmTopic">Choose a topic</label><select id="hrmTopic"></select><div class="formgrid"><button class="secondary" id="prevTopic">Previous topic</button><button class="secondary" id="nextTopic">Next topic</button></div><button id="printNotes">Download / Save all notes as PDF</button><p class="muted">Press the button, then choose “Save as PDF” in the phone print menu. No internet is required.</p></div>
+<div id="hrmNotesContent"></div></div>
+</section>
+<footer>Toleo la Chrome · Data huhifadhiwa kwenye kifaa hiki</footer>
+</main>
+<script>
+const $=id=>document.getElementById(id);
+document.querySelectorAll('.tabs button').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.tabs button').forEach(x=>x.classList.remove('active'));document.querySelectorAll('main section').forEach(x=>x.classList.remove('active'));b.classList.add('active');$(b.dataset.tab).classList.add('active');}));
+const get=(k,d=[])=>{try{return JSON.parse(localStorage.getItem(k))||d}catch{return d}};
+const put=(k,v)=>localStorage.setItem(k,JSON.stringify(v));
+// Rekodi ya mazoezi ya Kessy — huongezwa mara moja tu kwenye kumbukumbu ya simu.
+const backBicepsSeedKey='kessy_seeded_workouts_20261111_back_biceps';
+if(!localStorage.getItem(backBicepsSeedKey)){
+  const sessionDate='2026-11-11';
+  const session=[
+    {date:sessionDate,name:'Bent-Over Barbell Row',weight:40,sets:3,reps:12,notes:'Mgongo · bomba la kawaida'},
+    {date:sessionDate,name:'Reverse-Grip Bent-Over Barbell Row',weight:40,sets:3,reps:10,notes:'Mgongo · mshiko wa chini'},
+    {date:sessionDate,name:'Single-Arm Dumbbell Row',weight:25,sets:3,reps:10,notes:'Mgongo · dumbbell'},
+    {date:sessionDate,name:'Lat Pulldown',weight:47.5,sets:3,reps:10,notes:'Mgongo'},
+    {date:sessionDate,name:'Seated Dumbbell Biceps Curl',weight:10,sets:3,reps:12,notes:'Biceps · 10 kg kila mkono'},
+    {date:sessionDate,name:'Short Barbell Biceps Curl',weight:20,sets:3,reps:10,notes:'Biceps · bomba fupi lenye uzito pande zote'}
+  ];
+  const saved=get('kessy_workouts');
+  const alreadySaved=session.every(x=>saved.some(r=>r.date===x.date&&r.name===x.name&&Number(r.weight)===x.weight&&Number(r.sets)===x.sets&&Number(r.reps)===x.reps));
+  if(!alreadySaved){put('kessy_workouts',saved.concat(session));}
+  localStorage.setItem(backBicepsSeedKey,'1');
+}
+$('date').value=new Date().toISOString().slice(0,10);
+function weekRange(){const now=new Date();const d=new Date(now.getFullYear(),now.getMonth(),now.getDate());const day=(d.getDay()+6)%7;const start=new Date(d);start.setDate(d.getDate()-day);const end=new Date(start);end.setDate(start.getDate()+6);const fmt=x=>`${x.getFullYear()}-${String(x.getMonth()+1).padStart(2,'0')}-${String(x.getDate()).padStart(2,'0')}`;return {start:fmt(start),end:fmt(end)}}
+function renderWeekly(){const a=get('kessy_workouts');const w=weekRange();const list=a.filter(r=>r.date>=w.start&&r.date<=w.end);const days=['Jumatatu','Jumanne','Jumatano','Alhamisi','Ijumaa','Jumamosi','Jumapili'];const byDay=days.map((name,i)=>{const d=new Date(w.start+'T12:00:00');d.setDate(d.getDate()+i);const key=`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;const items=list.filter(r=>r.date===key);return {name,key,items,sets:items.reduce((n,r)=>n+(Number(r.sets)||0),0),reps:items.reduce((n,r)=>n+(Number(r.sets)||0)*(Number(r.reps)||0),0)}});const totalSets=byDay.reduce((n,d)=>n+d.sets,0),totalReps=byDay.reduce((n,d)=>n+d.reps,0),trained=byDay.filter(d=>d.items.length).length,max=Math.max(1,...byDay.map(d=>d.sets));$('weeklyReport').innerHTML=`<p><b>Wiki:</b> ${w.start} hadi ${w.end}</p><div class="reportstats"><div class="stat"><span class="muted">Siku za mazoezi</span><b>${trained}/7</b></div><div class="stat"><span class="muted">Jumla ya seti</span><b>${totalSets}</b></div><div class="stat"><span class="muted">Marudio</span><b>${totalReps}</b></div></div><h3>Seti kwa siku</h3>${byDay.map(d=>`<div class="barrow"><span>${d.name.slice(0,3)}</span><div class="barbg"><div class="barfill" style="width:${d.sets/max*100}%"></div></div><b>${d.sets}</b></div>`).join('')}<h3>Orodha ya mazoezi</h3>${list.length?`<table class="reporttable"><thead><tr><th>Tarehe</th><th>Zoezi</th><th>Kg</th><th>Seti × reps</th></tr></thead><tbody>${list.map(r=>`<tr><td>${esc(r.date)}</td><td>${esc(r.name)}</td><td>${esc(r.weight)}</td><td>${esc(r.sets)} × ${esc(r.reps)}</td></tr>`).join('')}</tbody></table>`:'<p class="muted">Bado hakuna rekodi za wiki hii.</p>'}`;}
+function downloadBlob(content,type,name){const blob=new Blob([content],{type}),url=URL.createObjectURL(blob),link=document.createElement('a');link.href=url;link.download=name;document.body.appendChild(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),1000)}
+function parseCSV(text){const rows=[];let row=[],field='',quoted=false;for(let i=0;i<text.length;i++){const c=text[i];if(c==='"'&&quoted&&text[i+1]==='"'){field+='"';i++}else if(c==='"'){quoted=!quoted}else if(c===','&&!quoted){row.push(field);field=''}else if((c==='\n'||c==='\r')&&!quoted){if(c==='\r'&&text[i+1]==='\n')i++;row.push(field);if(row.some(v=>v.trim()))rows.push(row);row=[];field=''}else field+=c}row.push(field);if(row.some(v=>v.trim()))rows.push(row);return rows}
+$('backupBtn').addEventListener('click',()=>{const payload={app:'KESSY LIFE BALANCE',type:'workout-backup',version:1,exportedAt:new Date().toISOString(),workouts:get('kessy_workouts')};downloadBlob(JSON.stringify(payload,null,2),'application/json','kessy-workout-backup.json')});
+$('importBtn').addEventListener('click',()=>{const f=$('importFile').files[0];if(!f){alert('Chagua kwanza faili ya JSON au CSV.');return}const reader=new FileReader();reader.onload=()=>{try{let incoming=[];if(f.name.toLowerCase().endsWith('.csv')){const rows=parseCSV(String(reader.result));incoming=rows.slice(1).map(r=>({date:r[0],name:r[1],weight:r[2],sets:r[3],reps:r[4],notes:r[5]||''})).filter(r=>r.date&&r.name)}else{const obj=JSON.parse(reader.result);incoming=Array.isArray(obj)?obj:(obj.workouts||obj.records||[])}if(!Array.isArray(incoming)||!incoming.every(r=>r&&r.date&&r.name&&Number(r.sets)>0&&Number(r.reps)>0))throw Error('bad');const current=get('kessy_workouts');let added=0;incoming.forEach(r=>{const x={date:String(r.date),name:String(r.name),weight:Number(r.weight)||0,sets:Number(r.sets),reps:Number(r.reps),notes:String(r.notes||'')};const exists=current.some(y=>y.date===x.date&&y.name===x.name&&Number(y.weight)===x.weight&&Number(y.sets)===x.sets&&Number(y.reps)===x.reps&&String(y.notes||'')===x.notes);if(!exists){current.push(x);added++}});put('kessy_workouts',current);renderRecords();renderWeekly();alert(`Faili imeingizwa. Rekodi mpya ${added} zimeongezwa.`)}catch(err){alert('Faili haijasomeka. Tumia backup ya JSON au CSV iliyopakuliwa kwenye app hii.')}};reader.readAsText(f)});
+$('pdfBtn').addEventListener('click',()=>{renderWeekly();window.print()});
+function renderRecords(){let a=get('kessy_workouts');$('recordList').innerHTML=a.length?a.slice().reverse().map((r,i)=>`<div class="record"><b>${esc(r.name)}</b><div class="muted">${esc(r.date)} · ${r.weight} kg · ${r.sets} × ${r.reps}${r.notes?' · '+esc(r.notes):''}</div></div>`).join(''):'<p class="muted">Bado hakuna rekodi mpya. Ongeza zoezi kwenye sehemu ya Gym.</p>'}
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+$('workoutForm').addEventListener('submit',e=>{e.preventDefault();let a=get('kessy_workouts');a.push({date:$('date').value,name:$('exerciseName').value,weight:$('weight').value,sets:$('sets').value,reps:$('reps').value,notes:$('notes').value});put('kessy_workouts',a);e.target.reset();$('date').value=new Date().toISOString().slice(0,10);renderRecords();alert('Rekodi imehifadhiwa kwenye simu yako.');});
+$('exportBtn').addEventListener('click',()=>{let a=get('kessy_workouts');let rows=[['Tarehe','Zoezi','Uzito kg','Seti','Marudio','Maelezo'],...a.map(r=>[r.date,r.name,r.weight,r.sets,r.reps,r.notes])];let csv=rows.map(row=>row.map(v=>'"'+String(v??'').replace(/"/g,'""')+'"').join(',')).join('\n');let blob=new Blob([csv],{type:'text/csv'}),url=URL.createObjectURL(blob),link=document.createElement('a');link.href=url;link.download='kessy-workout-records.csv';link.click();URL.revokeObjectURL(url);});
+function renderTasks(){let a=get('kessy_tasks');$('tasks').innerHTML=a.map((t,i)=>`<div class="record"><label><input type="checkbox" data-i="${i}" ${t.done?'checked':''} style="width:auto;margin-right:8px">${esc(t.text)}</label></div>`).join('');$('tasks').querySelectorAll('input').forEach(c=>c.addEventListener('change',()=>{let x=get('kessy_tasks');x[+c.dataset.i].done=c.checked;put('kessy_tasks',x);renderTasks()}))}
+$('addTask').addEventListener('click',()=>{let v=$('taskInput').value.trim();if(!v)return;let a=get('kessy_tasks');a.push({text:v,done:false});put('kessy_tasks',a);$('taskInput').value='';renderTasks()});
+
+// HRM first-year notes are bundled in this file: no network request is needed.
+const hrmNotes=[
+{title:'1. Introduction to Human Resource Management',body:[
+['Meaning','Human Resource Management (HRM) is the systematic process of managing people in an organisation so that both organisational objectives and employees’ needs can be achieved. Employees are often called human resources because their knowledge, skills, abilities and effort contribute to organisational performance.'],
+['Objectives of HRM','The main objectives are to attract qualified employees, place the right person in the right job, develop employees, motivate and retain them, maintain fair employment relationships, comply with labour laws, and improve organisational productivity.'],
+['Importance','Effective HRM improves productivity, service quality, employee morale, teamwork, innovation and organisational stability. Poor HRM may lead to high labour turnover, conflict, absenteeism and low performance.'],
+['HRM functions','Major functions include human resource planning, job analysis, recruitment, selection, placement, orientation, training and development, performance management, compensation, employee relations, occupational health and safety, and separation.']]},
+{title:'2. Evolution and Approaches to HRM',body:[
+['Historical development','Personnel administration traditionally focused on record keeping, wages, discipline and compliance. Modern HRM takes a broader and more strategic approach by linking people management to organisational goals and employee development.'],
+['Hard and soft approaches','The hard approach emphasises workforce numbers, costs, control and measurable performance. The soft approach emphasises employee commitment, communication, participation, trust and development. Organisations may combine both approaches.'],
+['Strategic HRM','Strategic HRM aligns people policies and practices with the long-term strategy of an organisation. For example, an organisation competing through excellent customer service needs to recruit, train and reward employees for service quality.']]},
+{title:'3. Human Resource Planning',body:[
+['Meaning','Human Resource Planning (HRP) is the process of estimating an organisation’s future human resource requirements and deciding how to obtain the required number and type of employees.'],
+['Steps','Review organisational objectives; analyse the current workforce; forecast future demand; forecast internal and external supply; identify shortages or surpluses; prepare action plans; implement and evaluate the plans.'],
+['Methods','Demand may be forecast using managerial judgement, workload analysis, productivity ratios and trend analysis. Supply analysis considers promotions, transfers, retirements, resignations and the external labour market.'],
+['Benefits','HRP helps prevent understaffing and overstaffing, supports budgeting, prepares employees for future roles and ensures that skills are available when needed.']]},
+{title:'4. Job Analysis, Job Description and Job Specification',body:[
+['Job analysis','Job analysis is the systematic collection of information about a job: its tasks, duties, responsibilities, working conditions and required competencies. Information can be collected through interviews, observation, questionnaires and work records.'],
+['Job description','A job description is a written statement of what a job involves. It commonly includes the job title, purpose, duties, responsibilities, reporting relationships and working conditions.'],
+['Job specification','A job specification states the qualities required of the job holder, such as education, experience, knowledge, skills, abilities and other relevant competencies.'],
+['Difference','The job description focuses on the job; the job specification focuses on the person needed to perform the job. Both support recruitment, selection, training and performance appraisal.']]},
+{title:'5. Recruitment',body:[
+['Meaning','Recruitment is the process of identifying and attracting suitable candidates to apply for vacant positions. Its purpose is to create a pool of qualified applicants.'],
+['Internal sources','Internal recruitment fills vacancies using existing employees through promotion, transfer or internal job advertisements. It can motivate staff and reduce adjustment time, but may limit the range of new ideas.'],
+['External sources','External recruitment may use public advertisements, employment agencies, universities, professional networks, referrals and online platforms. It can introduce new skills but may cost more and take longer.'],
+['Good practice','Recruitment criteria should be clear, job-related, inclusive and communicated consistently. The organisation should provide accurate information about the role.']]},
+{title:'6. Selection and Placement',body:[
+['Meaning','Selection is the process of assessing applicants and choosing the candidate who best meets the job requirements. Placement assigns the selected employee to an appropriate position.'],
+['Common methods','Methods include application screening, interviews, ability or aptitude tests, work-sample tests, presentations, reference checks and medical assessments where lawful and relevant to the job.'],
+['Selection principles','Use valid and reliable methods, consistent questions and job-related criteria. Avoid discrimination and protect applicants’ personal information. A selection decision should be based on evidence rather than favouritism.'],
+['Induction','After appointment, induction introduces a new employee to the organisation, colleagues, duties, policies, safety procedures and expected standards.']]},
+{title:'7. Training and Development',body:[
+['Meaning','Training improves knowledge and skills required for an employee’s current job. Development prepares employees for broader responsibilities and future roles.'],
+['Training cycle','Identify training needs; set measurable objectives; design the programme; deliver training; evaluate learning and workplace results. Training needs may exist at organisational, job or individual level.'],
+['Methods','On-the-job methods include coaching, job rotation, mentoring and demonstrations. Off-the-job methods include lectures, workshops, case studies, simulations and online learning.'],
+['Evaluation','Evaluation can consider participants’ reactions, knowledge gained, behaviour at work and results such as quality, productivity or reduced errors.']]},
+{title:'8. Performance Management and Appraisal',body:[
+['Meaning','Performance management is a continuous process of setting expectations, supporting employees, reviewing progress and improving performance. Performance appraisal is a periodic assessment within that wider process.'],
+['Process','Agree on clear objectives and standards; provide resources and feedback; monitor performance; conduct a review; identify strengths and gaps; agree on a development or improvement plan.'],
+['Methods','Possible methods include rating scales, objectives-based assessment, behaviourally anchored ratings, self-assessment and multi-source feedback. The method should fit the job.'],
+['Common errors','Errors include halo effect, recency bias, leniency, strictness, personal bias and unclear standards. Training appraisers and using evidence can reduce these problems.']]},
+{title:'9. Compensation and Employee Benefits',body:[
+['Meaning','Compensation is the total financial and non-financial return employees receive for their work. It includes direct pay, indirect benefits and other forms of recognition.'],
+['Direct and indirect rewards','Direct rewards include basic salary, wages, overtime and incentives. Indirect rewards may include leave, insurance, pension contributions and other benefits, depending on applicable law and organisational policy.'],
+['Principles','A fair reward system should consider job value, skills, responsibility, performance, affordability, internal equity and external labour-market conditions. It must comply with relevant employment laws.'],
+['Motivation','Rewards can support motivation when employees understand the system and believe that it is fair, transparent and linked to meaningful contributions.']]},
+{title:'10. Employee Relations, Communication and Conflict',body:[
+['Employee relations','Employee relations concerns the relationship between an employer and employees, including communication, consultation, discipline, grievances, representation and workplace cooperation.'],
+['Communication','Effective workplace communication is clear, timely, respectful and allows feedback. Channels may include meetings, briefings, written notices, email and formal consultation.'],
+['Conflict management','Conflict may arise from unclear duties, limited resources, unfair treatment or poor communication. It can be managed through discussion, negotiation, mediation, fair investigation and agreed solutions.'],
+['Grievances and discipline','A grievance is an employee’s formal complaint about a workplace matter. Disciplinary procedures address alleged misconduct or poor conduct. Both should follow fair, consistent and documented procedures and applicable law.']]},
+{title:'11. Occupational Health, Safety and Employee Well-being',body:[
+['Meaning','Occupational health and safety aims to prevent work-related injury and illness and to provide a safe working environment. Employee well-being also considers physical, psychological and social welfare.'],
+['Risk management','Identify hazards; assess the likelihood and severity of harm; apply controls; communicate procedures; provide training and protective equipment where required; monitor and review controls.'],
+['Responsibilities','Employers and workers have duties under applicable occupational safety laws and workplace rules. Employees should follow safety procedures and report hazards, incidents and unsafe conditions.'],
+['Benefits','Good safety practices reduce injuries, absence, disruption and costs while supporting morale and productivity.']]},
+{title:'12. Labour Relations and Employment Law',body:[
+['Labour relations','Labour relations deals with relationships among employers, employees and their representatives, including trade unions, collective bargaining and dispute resolution.'],
+['Collective bargaining','Collective bargaining is negotiation between an employer (or employers’ organisation) and employee representatives, commonly a trade union, over terms and conditions of employment.'],
+['Employment law','Employment law establishes minimum rights, duties and procedures relating to employment. HR practitioners should consult current Tanzanian legislation and authoritative guidance because legal requirements can change.'],
+['Good HR practice','Maintain accurate employment records, use written and understandable policies, treat employees consistently, respect lawful representation and seek qualified advice when handling complex legal issues.']]},
+{title:'13. HR Records, HR Information Systems and Ethics',body:[
+['HR records','HR records may include employee details, contracts, attendance, leave, training, performance, payroll and disciplinary documentation. Records should be accurate, relevant, secure and retained according to applicable requirements.'],
+['HR information systems','An HR Information System (HRIS) is a system used to collect, store, process and report HR information. It can support payroll, recruitment, leave management, training and workforce planning.'],
+['Ethics and confidentiality','HR professionals should act honestly, fairly and professionally, protect confidential information, avoid conflicts of interest and use employee data only for legitimate purposes. Access should be limited to authorised people.']]},
+{title:'14. Revision Questions and Key Terms',body:[
+['Key terms','HRM: management of people at work. HRP: forecasting and planning workforce needs. Recruitment: attracting applicants. Selection: choosing a suitable candidate. Job analysis: collecting information about a job. Training: improving current-job skills. Development: preparing for future responsibilities. Appraisal: formal review of performance.'],
+['Short questions','1. Define Human Resource Management. 2. Explain five functions of HRM. 3. Distinguish job description from job specification. 4. Explain internal and external recruitment. 5. Describe the steps in human resource planning. 6. Differentiate training and development. 7. Explain four methods of performance appraisal. 8. Discuss the importance of occupational health and safety.'],
+['Essay practice','“Employees are an important organisational resource.” Discuss this statement using examples. In your answer, explain how recruitment, training, performance management and compensation can contribute to organisational success.'],
+['Study tip','For each topic, learn the definition, explain the main points in your own words, give a practical workplace example and practise answering questions. Use your official course outline and prescribed materials to confirm examinable topics.']]}
+];
+function renderHrm(){const sel=$('hrmTopic');if(!sel)return;sel.innerHTML=hrmNotes.map((n,i)=>`<option value="${i}">${esc(n.title)}</option>`).join('');showHrmTopic(0);}
+function showHrmTopic(i){const n=hrmNotes[i];$('hrmTopic').value=String(i);$('hrmNotesContent').innerHTML=`<article class="note-topic"><h2>${esc(n.title)}</h2>${n.body.map(([h,t])=>`<h3>${esc(h)}</h3><p>${esc(t)}</p>`).join('')}</article>`;}
+$('hrmTopic').addEventListener('change',e=>showHrmTopic(Number(e.target.value)));
+$('prevTopic').addEventListener('click',()=>showHrmTopic((Number($('hrmTopic').value)+hrmNotes.length-1)%hrmNotes.length));
+$('nextTopic').addEventListener('click',()=>showHrmTopic((Number($('hrmTopic').value)+1)%hrmNotes.length));
+$('printNotes').addEventListener('click',()=>{document.body.classList.add('print-notes');window.print();setTimeout(()=>document.body.classList.remove('print-notes'),500)});
+window.addEventListener('afterprint',()=>document.body.classList.remove('print-notes'));
+renderHrm();
+// Service worker caches the app shell after the first online visit for later offline use.
+if('serviceWorker' in navigator && location.protocol.startsWith('http')){window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));}
+
+renderRecords();renderTasks();renderWeekly();
+
+</script>
+</body></html>
